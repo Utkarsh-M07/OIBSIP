@@ -1,0 +1,48 @@
+# 🍕 Pizza Delivery Application
+
+**Intern:** Utkarsh  
+**Task:** Level 3 — Task 1  
+**File:** `Pizza_app.html`
+
+## 📌 Overview
+A full-featured Pizza Delivery web application with User and Admin portals — menu browsing, custom pizza builder, cart, Razorpay test checkout, live order tracking, and admin dashboard.
+
+## 🎯 Features
+### 👤 User
+- ✅ Register and Login
+- ✅ Browse signature pizza menu
+- ✅ Custom Pizza Builder (5 steps: Base → Sauce → Cheese → Veggies → Review)
+- ✅ Live price calculation
+- ✅ Shopping cart with GST and delivery fee
+- ✅ Razorpay Checkout — Test Mode (Card / UPI / COD)
+- ✅ Order Tracking — 5-step live status pipeline
+
+### 🛡️ Admin
+- ✅ Admin login
+- ✅ Dashboard — orders, revenue, pending count
+- ✅ Orders management — update status via dropdown
+- ✅ Inventory — 16 ingredients, low-stock alerts at <20 units
+- ✅ Notifications — auto alerts for stock threshold
+
+## 🖥️ Tech Stack
+| Technology | Usage |
+|------------|-------|
+| HTML5 | SPA structure |
+| CSS3 | Dark theme, grid, animations |
+| JavaScript | Full app logic, state management |
+
+## 👤 Demo Credentials
+| Role | Email | Password |
+|------|-------|----------|
+| User | `demo@slicedup.com` | `demo123` |
+| Admin | `admin@slicedup.com` | `admin123` |
+
+## 🚀 How to Run
+Open `Pizza_app.html` in any browser — no installation needed.
+
+## 📂 File Structure
+```
+Level 3/Task 1/
+├── Pizza_app.html
+└── README.md
+```

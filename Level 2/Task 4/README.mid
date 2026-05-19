@@ -1,0 +1,41 @@
+# 🔐 Login Authentication System
+
+**Intern:** Utkarsh  
+**Task:** Level 2 — Task 4  
+**File:** `Login.html`
+
+## 📌 Overview
+A complete login authentication system with Register, Login, and Secured Dashboard pages — built in pure HTML, CSS, and JavaScript.
+
+## 🎯 Features
+- ✅ User Registration with validation
+- ✅ User Login — checks against registered accounts
+- ✅ Secured Dashboard — only accessible after login
+- ✅ Password strength meter
+- ✅ Inline error messages
+- ✅ Social login simulation (Google, GitHub)
+- ✅ Toast notifications
+- ✅ Logout functionality
+- ✅ Demo account pre-loaded
+
+## 🖥️ Tech Stack
+| Technology | Usage |
+|------------|-------|
+| HTML5 | Multi-page structure |
+| CSS3 | Glassmorphism UI, animations |
+| JavaScript | Auth logic, validation, routing |
+
+## 👤 Demo Credentials
+| Email | Password |
+|-------|----------|
+| `demo@authflow.com` | `demo123` |
+
+## 🚀 How to Run
+Open `Login.html` in any browser — no installation needed.
+
+## 📂 File Structure
+```
+Level 2/Task 4/
+├── Login.html
+└── README.md
+```

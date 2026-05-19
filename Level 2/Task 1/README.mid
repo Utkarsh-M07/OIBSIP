@@ -1,0 +1,46 @@
+# 🧮 Calculator
+
+**Intern:** Utkarsh  
+**Task:** Level 2 — Task 1  
+**File:** `calc.html`
+
+## 📌 Overview
+A fully functional scientific calculator built with HTML, CSS, and JavaScript featuring a dark UI, expression history, keyboard support, and advanced operators.
+
+## 🎯 Features
+- ✅ Basic operations: Addition, Subtraction, Multiplication, Division
+- ✅ Display screen for input and results
+- ✅ CSS Grid used for button alignment
+- ✅ Advanced: √ (square root), xʸ (power), % (percentage)
+- ✅ Parentheses support ( ) with smart auto-close
+- ✅ ANS button — reuse last result
+- ✅ DEL to delete last character, C to clear all
+- ✅ Expression history shown above current number
+- ✅ Full keyboard support
+- ✅ Error handling for invalid expressions
+
+## 🖥️ Tech Stack
+| Technology | Usage |
+|------------|-------|
+| HTML5 | Structure |
+| CSS3 | Grid layout, dark theme |
+| JavaScript | Logic, event listeners, evaluation |
+
+## ⌨️ Keyboard Shortcuts
+| Key | Action |
+|-----|--------|
+| `0–9`, `.` | Input digits |
+| `+` `-` `*` `/` | Operators |
+| `Enter` or `=` | Calculate |
+| `Backspace` | Delete last |
+| `Escape` | Clear all |
+
+## 🚀 How to Run
+Open `calc.html` in any browser — no installation needed.
+
+## 📂 File Structure
+```
+Level 2/Task 1/
+├── calc.html
+└── README.md
+```

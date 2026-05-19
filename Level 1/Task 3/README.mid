@@ -1,0 +1,25 @@
+# 🌡️ Temperature Converter
+
+**Intern:** Utkarsh  
+**Task:** Level 1 — Task 3  
+**File:** `Temp_convertor.html`
+
+## 📌 Overview
+A temperature converter website that converts between Celsius, Fahrenheit, and Kelvin with input validation and instant results.
+
+## 🎯 Features
+- ✅ Input field with number validation
+- ✅ Unit selector — °C, °F, Kelvin
+- ✅ Convert button triggers conversion
+- ✅ Results displayed for all three units
+- ✅ Bonus: Kelvin as third conversion option
+- ✅ Error handling for invalid inputs
+
+## 🖥️ Tech Stack
+| Technology | Usage |
+|------------|-------|
+| HTML5 | Page structure |
+| CSS3 | Styling and layout |
+| JavaScript | Conversion logic and validation |
+
+## 🔢 Formulas Used

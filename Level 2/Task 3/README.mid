@@ -1,0 +1,39 @@
+# ✅ To-Do Web Application
+
+**Intern:** Utkarsh  
+**Task:** Level 2 — Task 3  
+**File:** `To_Do.html`
+
+## 📌 Overview
+A full-featured To-Do web app to manage daily tasks with pending/completed sections, priority levels, edit/delete functionality, and timestamps.
+
+## 🎯 Features
+- ✅ Add tasks with title, description, and priority
+- ✅ Tasks visible immediately after adding
+- ✅ Mark tasks as complete — moves to Completed section
+- ✅ Pending Tasks section
+- ✅ Completed Tasks section (with strikethrough)
+- ✅ Edit any task via modal dialog
+- ✅ Delete any task
+- ✅ Tab filter — All / Pending / Completed
+- ✅ Bonus: Timestamp when task is added
+- ✅ Bonus: Timestamp when task is completed
+- ✅ Bonus: Priority badges — High / Medium / Low
+- ✅ Input validation
+
+## 🖥️ Tech Stack
+| Technology | Usage |
+|------------|-------|
+| HTML5 | Structure |
+| CSS3 | Dark theme, grid, modal |
+| JavaScript | CRUD operations, timestamps, DOM |
+
+## 🚀 How to Run
+Open `To_Do.html` in any browser — no installation needed.
+
+## 📂 File Structure
+```
+Level 2/Task 3/
+├── To_Do.html
+└── README.md
+```

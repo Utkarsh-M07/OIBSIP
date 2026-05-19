@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #1a1a2e;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    font-family: 'Outfit', sans-serif;
+  }
+
+  .shell { width: 100%; max-width: 360px; }
+
+  .brand { text-align: center; margin-bottom: 1.5rem; }
+  .brand-name {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #6c6c8a;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .calc {
+    background: #16213e;
+    border-radius: 28px;
+    overflow: hidden;
+    border: 1px solid #0f3460;
+  }
+
+  .display {
+    background: #0f3460;
+    padding: 20px 24px 16px;
+    min-height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .expr {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: #4a6fa5;
+    min-height: 18px;
+    word-break: break-all;
+    text-align: right;
+  }
+
+  .main-num {
+    font-family: 'Outfit', sans-serif;
+    font-size: 52px;
+    font-weight: 900;
+    color: #e2e8f5;
+    text-align: right;
+    line-height: 1;
+    word-break: break-all;
+  }
+
+  .main-num.small { font-size: 32px; }
+  .main-num.error-txt { font-size: 20px; color: #e55; }
+
+  .history-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px 0;
+    margin-bottom: 2px;
+  }
+
+  .history-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #3a4a6a;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .history-val {
+    font-size: 12px;
+    color: #4a6fa5;
+    font-family: 'JetBrains Mono', monospace;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  .keypad {
+    padding: 16px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .btn {
+    border: none;
+    border-radius: 16px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    height: 64px;
+    transition: transform 0.08s, background 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn:active { transform: scale(0.93); }
+
+  .btn-num  { background: #1e2d5a; color: #c8d4f0; }
+  .btn-num:hover  { background: #253569; }
+
+  .btn-op   { background: #253569; color: #7eb8ff; }
+  .btn-op:hover   { background: #2e4080; }
+
+  .btn-fn   { background: #1a2a50; color: #8899cc; font-size: 15px; }
+  .btn-fn:hover   { background: #223060; }
+
+  .btn-clear { background: #3d1f1f; color: #ff6b6b; font-size: 15px; }
+  .btn-clear:hover { background: #4d2525; }
+
+  .btn-del  { background: #3d2a1a; color: #ffaa55; font-size: 15px; }
+  .btn-del:hover  { background: #4d3520; }
+
+  .btn-ans  { background: #1e3a2a; color: #4ec97a; font-size: 14px; }
+  .btn-ans:hover  { background: #254832; }
+
+  .btn-eq {
+    background: #e040fb;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 900;
+    border-radius: 16px;
+  }
+  .btn-eq:hover { background: #c030d8; }
+
+  .btn-zero { grid-column: span 2; }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <div class="brand">
+    <span class="brand-name">calc — v2</span>
+  </div>
+  <div class="calc">
+    <div class="display">
+      <div class="expr" id="expr"></div>
+      <div class="main-num" id="mainNum">0</div>
+    </div>
+    <div class="history-row">
+      <span class="history-label">ans</span>
+      <span class="history-val" id="ansVal">—</span>
+    </div>
+    <div class="keypad">
+      <button class="btn btn-clear" onclick="clearAll()">C</button>
+      <button class="btn btn-fn"    onclick="appendChar('(')">( )</button>
+      <button class="btn btn-fn"    onclick="appendChar('%')">%</button>
+      <button class="btn btn-del"   onclick="delChar()">⌫</button>
+
+      <button class="btn btn-fn"    onclick="appendChar('√')">√</button>
+      <button class="btn btn-op"    onclick="appendChar('^')">xʸ</button>
+      <button class="btn btn-op"    onclick="appendChar('/')">÷</button>
+      <button class="btn btn-op"    onclick="appendChar('*')">×</button>
+
+      <button class="btn btn-num"   onclick="appendChar('7')">7</button>
+      <button class="btn btn-num"   onclick="appendChar('8')">8</button>
+      <button class="btn btn-num"   onclick="appendChar('9')">9</button>
+      <button class="btn btn-op"    onclick="appendChar('-')">−</button>
+
+      <button class="btn btn-num"   onclick="appendChar('4')">4</button>
+      <button class="btn btn-num"   onclick="appendChar('5')">5</button>
+      <button class="btn btn-num"   onclick="appendChar('6')">6</button>
+      <button class="btn btn-op"    onclick="appendChar('+')">+</button>
+
+      <button class="btn btn-num"   onclick="appendChar('1')">1</button>
+      <button class="btn btn-num"   onclick="appendChar('2')">2</button>
+      <button class="btn btn-num"   onclick="appendChar('3')">3</button>
+      <button class="btn btn-ans"   onclick="useAns()">ANS</button>
+
+      <button class="btn btn-num btn-zero" onclick="appendChar('0')">0</button>
+      <button class="btn btn-num"   onclick="appendChar('.')">.</button>
+      <button class="btn btn-eq"    onclick="calculate()">=</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let expr = '';
+  let lastAns = null;
+  let justCalc = false;
+
+  function updateDisplay(main, isErr) {
+    const el = document.getElementById('mainNum');
+    const len = String(main).length;
+    el.className = 'main-num' + (isErr ? ' error-txt' : (len > 9 ? ' small' : ''));
+    el.textContent = main;
+    document.getElementById('expr').textContent = expr;
+    document.getElementById('ansVal').textContent = lastAns !== null ? fmtNum(lastAns) : '—';
+  }
+
+  function fmtNum(n) {
+    if (!isFinite(n)) return String(n);
+    if (Math.abs(n) >= 1e12 || (Math.abs(n) < 1e-6 && n !== 0)) return n.toExponential(4);
+    return parseFloat(n.toFixed(10)).toString();
+  }
+
+  function appendChar(ch) {
+    if (justCalc && /[0-9.(√]/.test(ch)) { expr = ''; justCalc = false; }
+    else if (justCalc) { justCalc = false; }
+
+    if (ch === '(') {
+      const opens  = (expr.match(/\(/g) || []).length;
+      const closes = (expr.match(/\)/g) || []).length;
+      ch = opens > closes ? ')' : '(';
+    }
+
+    expr += ch;
+    updateDisplay(expr || '0');
+  }
+
+  function delChar() {
+    justCalc = false;
+    expr = expr.slice(0, -1);
+    updateDisplay(expr || '0');
+  }
+
+  function clearAll() {
+    expr = '';
+    justCalc = false;
+    updateDisplay('0');
+  }
+
+  function useAns() {
+    if (lastAns !== null) {
+      if (justCalc) { expr = String(lastAns); justCalc = false; }
+      else expr += String(lastAns);
+      updateDisplay(expr);
+    }
+  }
+
+  function calculate() {
+    if (!expr) return;
+    try {
+      let e = expr;
+      e = e.replace(/√(\d+(\.\d+)?)/g, (_, n) => Math.sqrt(parseFloat(n)));
+      e = e.replace(/√\(/g, 'Math.sqrt(');
+      e = e.replace(/\^/g, '**');
+      e = e.replace(/(\d+(\.\d+)?)\s*%/g, (_, n) => parseFloat(n) / 100);
+
+      const result = Function('"use strict"; return (' + e + ')')();
+      if (!isFinite(result)) throw new Error('Math error');
+
+      lastAns = result;
+      const display = fmtNum(result);
+
+      document.getElementById('expr').textContent = expr + ' =';
+      expr = display;
+      justCalc = true;
+
+      const el = document.getElementById('mainNum');
+      el.className = 'main-num' + (display.length > 9 ? ' small' : '');
+      el.textContent = display;
+      document.getElementById('ansVal').textContent = display;
+    } catch (err) {
+      document.getElementById('mainNum').className = 'main-num error-txt';
+      document.getElementById('mainNum').textContent = 'Error';
+      expr = '';
+      justCalc = false;
+    }
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key >= '0' && e.key <= '9') appendChar(e.key);
+    else if (['+', '-', '*', '/', '.', '(', ')', '^', '%'].includes(e.key)) appendChar(e.key);
+    else if (e.key === 'Enter' || e.key === '=') calculate();
+    else if (e.key === 'Backspace') delChar();
+    else if (e.key === 'Escape') clearAll();
+  });
+</script>
+
+</body>
+</html>

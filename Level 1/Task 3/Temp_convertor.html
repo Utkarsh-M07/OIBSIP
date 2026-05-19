@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Temperature Converter</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    min-height: 100vh;
+    background: #0d0d0d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    padding: 2rem 1rem;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 480px;
+    background: #141414;
+    border: 1px solid #2a2a2a;
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .top-band {
+    height: 6px;
+    background: linear-gradient(90deg, #ff4d4d 0%, #ff9f1c 40%, #2ec4b6 100%);
+  }
+
+  .card-inner { padding: 2rem; }
+
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+
+  .title {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: #f5f5f5;
+    line-height: 1.1;
+  }
+
+  .title span {
+    display: block;
+    font-size: 13px;
+    font-weight: 400;
+    color: #555;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .thermo-icon {
+    width: 44px; height: 44px;
+    background: #1e1e1e;
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #444;
+    margin-bottom: 10px;
+  }
+
+  .unit-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 1.5rem;
+  }
+
+  .unit-btn {
+    padding: 12px 0;
+    background: #1e1e1e;
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: center;
+  }
+
+  .unit-btn:hover { border-color: #444; color: #999; }
+  .unit-btn.active-C { border-color: #ff4d4d; color: #ff4d4d; }
+  .unit-btn.active-F { border-color: #ff9f1c; color: #ff9f1c; }
+  .unit-btn.active-K { border-color: #2ec4b6; color: #2ec4b6; }
+
+  .input-block {
+    background: #1e1e1e;
+    border: 1px solid #2a2a2a;
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: border-color 0.15s;
+  }
+
+  .input-block:focus-within { border-color: #444; }
+
+  .big-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: 'Syne', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    color: #f5f5f5;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .big-input::placeholder { color: #333; }
+
+  /* Remove number input arrows */
+  .big-input::-webkit-outer-spin-button,
+  .big-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .big-input[type=number] { -moz-appearance: textfield; }
+
+  .unit-badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 999px;
+    flex-shrink: 0;
+  }
+
+  .badge-C { background: rgba(255,77,77,0.15); color: #ff4d4d; }
+  .badge-F { background: rgba(255,159,28,0.15); color: #ff9f1c; }
+  .badge-K { background: rgba(46,196,182,0.15); color: #2ec4b6; }
+
+  .error-msg {
+    font-size: 11px;
+    color: #ff4d4d;
+    min-height: 18px;
+    padding-left: 4px;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  .convert-btn {
+    width: 100%;
+    padding: 16px;
+    background: #f5f5f5;
+    color: #0d0d0d;
+    border: none;
+    border-radius: 14px;
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.15s;
+    margin-bottom: 1.5rem;
+  }
+
+  .convert-btn:hover { background: #ddd; }
+  .convert-btn:active { transform: scale(0.99); }
+
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .result-card {
+    background: #1e1e1e;
+    border: 1px solid #2a2a2a;
+    border-radius: 14px;
+    padding: 14px 16px;
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .result-card.lit-C { border-left: 3px solid #ff4d4d; background: rgba(255,77,77,0.05); }
+  .result-card.lit-F { border-left: 3px solid #ff9f1c; background: rgba(255,159,28,0.05); }
+  .result-card.lit-K { border-left: 3px solid #2ec4b6; background: rgba(46,196,182,0.05); }
+
+  .result-name {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #444;
+    margin-bottom: 6px;
+  }
+
+  .result-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: #f5f5f5;
+  }
+
+  .result-unit {
+    font-size: 11px;
+    color: #555;
+    margin-top: 2px;
+  }
+
+  .heat-bar-wrap {
+    height: 4px;
+    background: #2a2a2a;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+
+  .heat-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.5s cubic-bezier(.4,0,.2,1), background 0.5s;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="top-band"></div>
+  <div class="card-inner">
+
+    <div class="header">
+      <div class="title">
+        <span>unit converter</span>
+        Temperature
+      </div>
+      <div class="thermo-icon">🌡️</div>
+    </div>
+
+    <div class="section-label">Input unit</div>
+    <div class="unit-grid">
+      <button class="unit-btn active-C" onclick="selectUnit('C')" id="btn-C">°C Celsius</button>
+      <button class="unit-btn" onclick="selectUnit('F')" id="btn-F">°F Fahrenheit</button>
+      <button class="unit-btn" onclick="selectUnit('K')" id="btn-K">K Kelvin</button>
+    </div>
+
+    <div class="section-label">Enter value</div>
+    <div class="input-block">
+      <input class="big-input" type="number" id="tempInput" placeholder="0" oninput="clearError()" />
+      <span class="unit-badge badge-C" id="unitBadge">°C</span>
+    </div>
+
+    <div class="error-msg" id="errorMsg"></div>
+
+    <button class="convert-btn" onclick="convert()">Convert →</button>
+
+    <div class="heat-bar-wrap">
+      <div class="heat-bar-fill" id="heatBar"></div>
+    </div>
+
+    <div class="section-label">Results</div>
+    <div class="results-grid">
+      <div class="result-card" id="res-C">
+        <div class="result-name">Celsius</div>
+        <div class="result-value" id="val-C">—</div>
+        <div class="result-unit">degrees Celsius</div>
+      </div>
+      <div class="result-card" id="res-F">
+        <div class="result-name">Fahrenheit</div>
+        <div class="result-value" id="val-F">—</div>
+        <div class="result-unit">degrees Fahrenheit</div>
+      </div>
+      <div class="result-card" id="res-K">
+        <div class="result-name">Kelvin</div>
+        <div class="result-value" id="val-K">—</div>
+        <div class="result-unit">absolute temperature</div>
+      </div>
+      <div class="result-card" id="res-desc" style="display:flex; flex-direction:column; justify-content:center;">
+        <div class="result-name">Context</div>
+        <div class="result-value" id="val-desc" style="font-size:14px; line-height:1.4;">—</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  let activeUnit = 'C';
+
+  const badges   = { C: '°C', F: '°F', K: 'K' };
+  const badgeCls = { C: 'badge-C', F: 'badge-F', K: 'badge-K' };
+  const litCls   = { C: 'lit-C',   F: 'lit-F',   K: 'lit-K'   };
+
+  function selectUnit(u) {
+    activeUnit = u;
+    ['C','F','K'].forEach(x => {
+      document.getElementById('btn-' + x).className =
+        'unit-btn' + (x === u ? ' active-' + x : '');
+    });
+    const badge = document.getElementById('unitBadge');
+    badge.className = 'unit-badge ' + badgeCls[u];
+    badge.textContent = badges[u];
+    clearResults();
+    clearError();
+  }
+
+  function clearError() {
+    document.getElementById('errorMsg').textContent = '';
+  }
+
+  function clearResults() {
+    ['C','F','K'].forEach(u => {
+      document.getElementById('val-' + u).textContent = '—';
+      document.getElementById('res-' + u).className = 'result-card';
+    });
+    document.getElementById('val-desc').textContent = '—';
+    document.getElementById('heatBar').style.width = '0%';
+    document.getElementById('heatBar').style.background = '#444';
+  }
+
+  function toCelsius(val, unit) {
+    if (unit === 'C') return val;
+    if (unit === 'F') return (val - 32) * 5 / 9;
+    if (unit === 'K') return val - 273.15;
+  }
+
+  function fromCelsius(c, unit) {
+    if (unit === 'C') return c;
+    if (unit === 'F') return c * 9 / 5 + 32;
+    if (unit === 'K') return c + 273.15;
+  }
+
+  function fmt(n) {
+    if (Math.abs(n) >= 10000 || (Math.abs(n) < 0.01 && n !== 0))
+      return n.toExponential(2);
+    return parseFloat(n.toFixed(2)).toString();
+  }
+
+  function getContext(c) {
+    if (c <= -273.15) return 'Absolute zero — coldest possible';
+    if (c < -89)      return "Colder than Earth's record low";
+    if (c < -50)      return 'Extreme polar cold';
+    if (c < -20)      return 'Arctic winter conditions';
+    if (c < 0)        return 'Below freezing point';
+    if (c < 10)       return 'Very cold, near freezing';
+    if (c < 20)       return 'Cool, jacket weather';
+    if (c < 30)       return 'Comfortable room temp';
+    if (c < 37)       return 'Warm, body temperature range';
+    if (c < 60)       return 'Hot to the touch';
+    if (c < 100)      return 'Approaching boiling point';
+    if (c === 100)    return 'Water boiling point (sea level)';
+    if (c < 300)      return 'Scalding, danger zone';
+    return 'Extreme heat';
+  }
+
+  function getHeatPct(c) {
+    const clamped = Math.max(-90, Math.min(200, c));
+    return ((clamped + 90) / 290) * 100;
+  }
+
+  function getBarColor(pct) {
+    if (pct < 30) return '#2ec4b6';
+    if (pct < 55) return '#ff9f1c';
+    return '#ff4d4d';
+  }
+
+  function convert() {
+    const raw = document.getElementById('tempInput').value.trim();
+
+    if (raw === '' || isNaN(Number(raw))) {
+      document.getElementById('errorMsg').textContent = '! enter a valid number';
+      return;
+    }
+
+    const val = parseFloat(raw);
+
+    if (activeUnit === 'K' && val < 0) {
+      document.getElementById('errorMsg').textContent = '! Kelvin cannot be negative';
+      return;
+    }
+
+    const celsius = toCelsius(val, activeUnit);
+    const results = {
+      C: celsius,
+      F: fromCelsius(celsius, 'F'),
+      K: fromCelsius(celsius, 'K')
+    };
+
+    ['C','F','K'].forEach(u => {
+      document.getElementById('val-' + u).textContent = fmt(results[u]);
+      document.getElementById('res-' + u).className =
+        'result-card' + (u !== activeUnit ? ' ' + litCls[u] : '');
+    });
+
+    document.getElementById('val-desc').textContent = getContext(celsius);
+
+    const pct = getHeatPct(celsius);
+    const bar = document.getElementById('heatBar');
+    bar.style.width = pct.toFixed(1) + '%';
+    bar.style.background = getBarColor(pct);
+  }
+
+  document.getElementById('tempInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') convert();
+  });
+</script>
+
+</body>
+</html>

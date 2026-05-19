@@ -1,0 +1,31 @@
+# 🌐 Landing Page
+
+**Intern:** Utkarsh  
+**Task:** Level 1 — Task 1  
+**File:** `Landing_page.html`
+
+## 📌 Overview
+A responsive landing page built with HTML and CSS featuring a clean layout, navigation bar, hero section, and footer.
+
+## 🎯 Features
+- ✅ Responsive navigation bar
+- ✅ Hero section with headline and call-to-action
+- ✅ Structured sections with proper layout
+- ✅ Styled with CSS for a clean, modern look
+- ✅ Mobile-friendly design
+
+## 🖥️ Tech Stack
+| Technology | Usage |
+|------------|-------|
+| HTML5 | Page structure and content |
+| CSS3 | Styling, layout, responsiveness |
+
+## 🚀 How to Run
+Open `Landing_page.html` in any browser — no installation needed.
+
+## 📂 File Structure
+```
+Level 1/Task 1/
+├── Landing_page.html
+└── README.md
+```

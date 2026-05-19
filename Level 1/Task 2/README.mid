@@ -1,0 +1,32 @@
+# 💼 Portfolio Website
+
+**Intern:** Utkarsh  
+**Task:** Level 1 — Task 2  
+**File:** `portfolio.html`
+
+## 📌 Overview
+A personal portfolio website showcasing skills, projects, and contact information with an appealing layout and design.
+
+## 🎯 Features
+- ✅ About Me section
+- ✅ Skills section
+- ✅ Projects showcase
+- ✅ Contact section
+- ✅ Responsive design with CSS styling
+- ✅ Smooth and clean UI
+
+## 🖥️ Tech Stack
+| Technology | Usage |
+|------------|-------|
+| HTML5 | Structure and content |
+| CSS3 | Styling, layout, animations |
+
+## 🚀 How to Run
+Open `portfolio.html` in any browser — no installation needed.
+
+## 📂 File Structure
+```
+Level 1/Task 2/
+├── portfolio.html
+└── README.md
+```

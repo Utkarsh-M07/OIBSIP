@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kobe Bryant — A Tribute</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #c9a84c;
+    --purple: #552583;
+    --purple-dark: #3a1a5e;
+    --purple-light: #7b42b8;
+    --cream: #f5f0e8;
+    --dark: #0e0e0e;
+    --mid: #1c1c1c;
+    --text: #e8e2d8;
+    --muted: #8a8070;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--purple-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '24';
+    position: absolute;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40vw;
+    color: rgba(255,255,255,0.03);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 14vw, 160px);
+    line-height: 0.9;
+    color: #fff;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-name span {
+    display: block;
+    color: var(--gold);
+  }
+
+  .hero-years {
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--muted);
+    margin-top: 1.5rem;
+    letter-spacing: 0.1em;
+  }
+
+  .hero-divider {
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 2rem auto;
+  }
+
+  .hero-tagline {
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+    font-size: clamp(16px, 2.5vw, 22px);
+    color: var(--cream);
+    max-width: 500px;
+    line-height: 1.6;
+  }
+
+  /* ── PHOTO STRIP ── */
+  .photo-strip {
+    background: var(--cream);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+  }
+
+  .photo-left {
+    background: #1a0a2e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+  }
+
+  .quote-block {
+    max-width: 380px;
+  }
+
+  .quote-mark {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 120px;
+    color: var(--gold);
+    line-height: 0.6;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .quote-text {
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+    font-size: clamp(18px, 2.5vw, 26px);
+    color: var(--cream);
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+
+  .quote-attr {
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .photo-right {
+    background: #1a0a2e;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .photo-right img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    position: absolute;
+    inset: 0;
+    opacity: 0.85;
+  }
+
+  .photo-right .img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, #1a0a2e 0%, transparent 50%);
+    z-index: 1;
+  }
+
+  .photo-right .img-fallback {
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+  }
+
+  /* ── STATS ── */
+  .stats-section {
+    background: var(--mid);
+    padding: 5rem 2rem;
+    text-align: center;
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 2px;
+    max-width: 900px;
+    margin: 0 auto;
+    background: #2a2a2a;
+    border: 1px solid #2a2a2a;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .stat-card {
+    background: var(--mid);
+    padding: 2.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── BIOGRAPHY ── */
+  .bio-section {
+    padding: 6rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 8vw, 80px);
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 2rem;
+  }
+
+  .section-title span { color: var(--gold); }
+
+  .bio-text {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 17px;
+    line-height: 1.9;
+    color: #b0a898;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ── TIMELINE ── */
+  .timeline-section {
+    background: var(--purple-dark);
+    padding: 6rem 2rem;
+  }
+
+  .timeline-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .timeline-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 8vw, 80px);
+    color: #fff;
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--gold), var(--purple-light), var(--gold));
+  }
+
+  .tl-item {
+    position: relative;
+    padding: 0 0 2.5rem 2rem;
+  }
+
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--purple-dark);
+  }
+
+  .tl-year {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  .tl-event {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 17px;
+    color: var(--cream);
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .tl-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── ACHIEVEMENTS ── */
+  .achieve-section {
+    padding: 6rem 2rem;
+    background: var(--dark);
+  }
+
+  .achieve-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .achieve-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5px;
+    background: #222;
+    border: 1.5px solid #222;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 3rem;
+  }
+
+  .achieve-card {
+    background: #131313;
+    padding: 2rem 1.5rem;
+  }
+
+  .achieve-icon {
+    font-size: 28px;
+    margin-bottom: 1rem;
+  }
+
+  .achieve-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--gold);
+    margin-bottom: 6px;
+    letter-spacing: 0.05em;
+  }
+
+  .achieve-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── MAMBA MENTALITY ── */
+  .mamba-section {
+    background: var(--purple);
+    padding: 6rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mamba-section::before {
+    content: 'MAMBA';
+    position: absolute;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30vw;
+    color: rgba(0,0,0,0.15);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .mamba-quote {
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+    font-size: clamp(20px, 3.5vw, 36px);
+    color: #fff;
+    max-width: 700px;
+    margin: 0 auto 2rem;
+    line-height: 1.5;
+    position: relative;
+    z-index: 1;
+  }
+
+  .mamba-attr {
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #080808;
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid #1e1e1e;
+  }
+
+  .footer-jersey {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 80px;
+    color: var(--purple);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    opacity: 0.6;
+  }
+
+  .footer-text {
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .footer-text span { color: var(--gold); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .photo-strip { grid-template-columns: 1fr; }
+    .photo-right { min-height: 300px; }
+    .photo-left { padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-eyebrow">A Tribute to the Black Mamba</p>
+    <h1 class="hero-name">
+      Kobe
+      <span>Bryant</span>
+    </h1>
+    <p class="hero-years">August 23, 1978 &nbsp;—&nbsp; January 26, 2020</p>
+    <div class="hero-divider"></div>
+    <p class="hero-tagline">"The most important thing is to try and inspire people so that they can be great in whatever they want to do."</p>
+
+    <!-- Decorative basketballs -->
+    <svg style="position:absolute;bottom:2rem;right:2rem;opacity:0.15;" width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="60" cy="60" r="58" fill="#c9a84c" stroke="#c9a84c" stroke-width="2"/>
+      <path d="M4 60 Q60 10 116 60" stroke="#3a1a5e" stroke-width="3" fill="none"/>
+      <path d="M4 60 Q60 110 116 60" stroke="#3a1a5e" stroke-width="3" fill="none"/>
+      <line x1="60" y1="2" x2="60" y2="118" stroke="#3a1a5e" stroke-width="3"/>
+      <line x1="2" y1="60" x2="118" y2="60" stroke="#3a1a5e" stroke-width="3"/>
+    </svg>
+
+    <svg style="position:absolute;top:2rem;left:2rem;opacity:0.08;" width="80" height="80" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="60" cy="60" r="58" fill="#c9a84c"/>
+      <path d="M4 60 Q60 10 116 60" stroke="#3a1a5e" stroke-width="3" fill="none"/>
+      <path d="M4 60 Q60 110 116 60" stroke="#3a1a5e" stroke-width="3" fill="none"/>
+      <line x1="60" y1="2" x2="60" y2="118" stroke="#3a1a5e" stroke-width="3"/>
+      <line x1="2" y1="60" x2="118" y2="60" stroke="#3a1a5e" stroke-width="3"/>
+    </svg>
+  </section>
+
+  <!-- PHOTO + QUOTE STRIP -->
+  <div class="photo-strip">
+    <div class="photo-left">
+      <div class="quote-block">
+        <span class="quote-mark">"</span>
+        <p class="quote-text">Everything negative — pressure, challenges — is all an opportunity for me to rise.</p>
+        <p class="quote-attr">— Kobe Bryant</p>
+      </div>
+    </div>
+    <div class="photo-right">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Kobe_Bryant_2014.jpg/800px-Kobe_Bryant_2014.jpg"
+        alt="Kobe Bryant"
+        onerror="this.style.display='none'; document.getElementById('img-fallback').style.display='flex';"
+      />
+      <div class="img-overlay"></div>
+      <div class="img-fallback" id="img-fallback" style="display:none; position:absolute; inset:0; align-items:center; justify-content:center; z-index:2;">
+        <svg viewBox="0 0 280 420" width="220" xmlns="http://www.w3.org/2000/svg" opacity="0.7">
+          <defs>
+            <radialGradient id="glow" cx="50%" cy="40%" r="50%">
+              <stop offset="0%" stop-color="#c9a84c" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#552583" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <ellipse cx="140" cy="210" rx="130" ry="200" fill="url(#glow)"/>
+          <!-- Jersey body -->
+          <rect x="60" y="180" width="160" height="200" rx="12" fill="#552583"/>
+          <!-- Jersey stripes -->
+          <rect x="60" y="195" width="160" height="4" fill="#c9a84c" opacity="0.6"/>
+          <rect x="60" y="350" width="160" height="4" fill="#c9a84c" opacity="0.6"/>
+          <!-- Number 24 -->
+          <text x="140" y="300" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="80" fill="#c9a84c" opacity="0.9">24</text>
+          <!-- LAL text -->
+          <text x="140" y="230" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="22" fill="#c9a84c" letter-spacing="4">LAKERS</text>
+          <!-- Head -->
+          <circle cx="140" cy="130" r="52" fill="#2a1a4e"/>
+          <circle cx="140" cy="110" r="38" fill="#3d2060"/>
+          <!-- Headband -->
+          <rect x="100" y="90" width="80" height="14" rx="7" fill="#552583"/>
+          <!-- Arms -->
+          <rect x="18" y="185" width="42" height="18" rx="9" fill="#552583"/>
+          <rect x="220" y="185" width="42" height="18" rx="9" fill="#552583"/>
+          <!-- Basketball in hand -->
+          <circle cx="30" cy="220" r="22" fill="#c9a84c" opacity="0.85"/>
+          <path d="M10 218 Q30 208 50 218" stroke="#3a1a5e" stroke-width="1.5" fill="none"/>
+          <path d="M10 222 Q30 232 50 222" stroke="#3a1a5e" stroke-width="1.5" fill="none"/>
+          <line x1="30" y1="198" x2="30" y2="242" stroke="#3a1a5e" stroke-width="1.5"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <section class="stats-section">
+    <p class="section-label">Career at a glance</p>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-num">5</span>
+        <span class="stat-label">NBA Championships</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">2</span>
+        <span class="stat-label">Finals MVP Awards</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">18</span>
+        <span class="stat-label">All-Star Selections</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">33,643</span>
+        <span class="stat-label">Career Points</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">81</span>
+        <span class="stat-label">Points in One Game</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">20</span>
+        <span class="stat-label">Seasons with the Lakers</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- BIOGRAPHY -->
+  <section class="bio-section">
+    <h2 class="section-title">Bio<span>graphy</span></h2>
+    <p class="bio-text">
+      Kobe Bean Bryant was born on August 23, 1978, in Philadelphia, Pennsylvania. The son of former NBA player Joe "Jellybean" Bryant, Kobe grew up with basketball in his blood. After spending much of his childhood in Italy while his father played professionally in Europe, he returned to the United States and became one of the most decorated high school players in Pennsylvania history.
+    </p>
+    <p class="bio-text">
+      In 1996, at just 17 years old, Bryant was selected 13th overall in the NBA Draft by the Charlotte Hornets and immediately traded to the Los Angeles Lakers — a franchise he would define for the next two decades. Playing his entire 20-year career in the purple and gold, he won five NBA championships (2000, 2001, 2002, 2009, 2010), was named Finals MVP twice, and was the NBA's Most Valuable Player in 2008.
+    </p>
+    <p class="bio-text">
+      Beyond statistics, Kobe was defined by his unrelenting work ethic — a philosophy he called the "Mamba Mentality." He studied the game obsessively, trained before the sun rose, and pushed every teammate around him to be better. After retirement in 2016, he won an Academy Award for his animated short film <em>Dear Basketball</em>, proving his genius extended far beyond the hardwood.
+    </p>
+    <p class="bio-text">
+      On January 26, 2020, Bryant, his daughter Gianna, and seven others tragically lost their lives in a helicopter crash in Calabasas, California. The world mourned the loss of one of sport's greatest icons. In 2021, he was posthumously inducted into the Naismith Memorial Basketball Hall of Fame.
+    </p>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="timeline-section">
+    <div class="timeline-inner">
+      <h2 class="timeline-title">Legacy Timeline</h2>
+      <div class="timeline">
+        <div class="tl-item">
+          <p class="tl-year">1978</p>
+          <p class="tl-event">Born in Philadelphia</p>
+          <p class="tl-desc">Kobe Bean Bryant is born to Joe and Pam Bryant on August 23rd.</p>
+        </div>
+        <div class="tl-item">
+          <p class="tl-year">1996</p>
+          <p class="tl-event">Enters the NBA</p>
+          <p class="tl-desc">Drafted straight out of Lower Merion High School, traded to the Los Angeles Lakers.</p>
+        </div>
+        <div class="tl-item">
+          <p class="tl-year">2000 – 2002</p>
+          <p class="tl-event">Three-Peat Championships</p>
+          <p class="tl-desc">Wins three consecutive NBA titles alongside Shaquille O'Neal and coach Phil Jackson.</p>
+        </div>
+        <div class="tl-item">
+          <p class="tl-year">2006</p>
+          <p class="tl-event">81-Point Game</p>
+          <p class="tl-desc">Scores 81 points against the Toronto Raptors — the second-highest single-game total in NBA history.</p>
+        </div>
+        <div class="tl-item">
+          <p class="tl-year">2008</p>
+          <p class="tl-event">NBA MVP & Olympic Gold</p>
+          <p class="tl-desc">Named the league's Most Valuable Player and wins Olympic gold with Team USA in Beijing.</p>
+        </div>
+        <div class="tl-item">
+          <p class="tl-year">2009 – 2010</p>
+          <p class="tl-event">Back-to-Back Champions</p>
+          <p class="tl-desc">Leads the Lakers to consecutive titles, winning Finals MVP both years as the undisputed leader.</p>
+        </div>
+        <div class="tl-item">
+          <p class="tl-year">2016</p>
+          <p class="tl-event">60-Point Farewell</p>
+          <p class="tl-desc">Scores 60 points in his final NBA game — a fitting, storybook ending to an extraordinary career.</p>
+        </div>
+        <div class="tl-item">
+          <p class="tl-year">2018</p>
+          <p class="tl-event">Academy Award Winner</p>
+          <p class="tl-desc">Wins the Oscar for Best Animated Short Film for <em>Dear Basketball</em>, cementing his creative legacy.</p>
+        </div>
+        <div class="tl-item">
+          <p class="tl-year">2020</p>
+          <p class="tl-event">Gone Too Soon</p>
+          <p class="tl-desc">Kobe, Gianna, and seven others pass away on January 26. The basketball world loses its brightest star.</p>
+        </div>
+        <div class="tl-item">
+          <p class="tl-year">2021</p>
+          <p class="tl-event">Hall of Fame Inductee</p>
+          <p class="tl-desc">Posthumously inducted into the Naismith Memorial Basketball Hall of Fame in his first year of eligibility.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section class="achieve-section">
+    <div class="achieve-inner">
+      <h2 class="section-title">Hon<span>ours</span></h2>
+      <div class="achieve-grid">
+        <div class="achieve-card">
+          <div class="achieve-icon">🏆</div>
+          <p class="achieve-title">5× NBA Champion</p>
+          <p class="achieve-desc">2000, 2001, 2002, 2009, 2010 — all with the Los Angeles Lakers.</p>
+        </div>
+        <div class="achieve-card">
+          <div class="achieve-icon">🥇</div>
+          <p class="achieve-title">2× Olympic Gold</p>
+          <p class="achieve-desc">Represented Team USA at 2008 Beijing and 2012 London Olympics.</p>
+        </div>
+        <div class="achieve-card">
+          <div class="achieve-icon">⭐</div>
+          <p class="achieve-title">18× NBA All-Star</p>
+          <p class="achieve-desc">Selected to the All-Star game every year from 1998 to 2016.</p>
+        </div>
+        <div class="achieve-card">
+          <div class="achieve-icon">🎬</div>
+          <p class="achieve-title">Academy Award</p>
+          <p class="achieve-desc">Best Animated Short Film for <em>Dear Basketball</em> (2018).</p>
+        </div>
+        <div class="achieve-card">
+          <div class="achieve-icon">🐍</div>
+          <p class="achieve-title">Black Mamba</p>
+          <p class="achieve-desc">His self-given nickname became a symbol of relentless focus and competitive excellence.</p>
+        </div>
+        <div class="achieve-card">
+          <div class="achieve-icon">🏀</div>
+          <p class="achieve-title">Jersey Retired</p>
+          <p class="achieve-desc">The Lakers retired both his #8 and #24 jerseys — the only player in franchise history to receive this honour.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAMBA MENTALITY QUOTE -->
+  <section class="mamba-section">
+    <p class="mamba-quote">
+      "The Mamba Mentality is all about focusing on the process and trusting in the hard work when it matters most."
+    </p>
+    <p class="mamba-attr">— Kobe Bryant, Mamba Mentality: How I Play</p>
+  </section>
+
+  <!-- SCORING VISUAL -->
+  <section style="background:#111; padding:5rem 2rem; text-align:center;">
+    <p class="section-label" style="margin-bottom:2rem;">Season scoring average — selected years</p>
+    <div style="max-width:700px; margin:0 auto; overflow-x:auto;">
+      <svg viewBox="0 0 700 220" width="100%" xmlns="http://www.w3.org/2000/svg" style="font-family:'DM Sans',sans-serif;">
+        <!-- Grid lines -->
+        <line x1="60" y1="20" x2="60" y2="180" stroke="#2a2a2a" stroke-width="1"/>
+        <line x1="60" y1="180" x2="680" y2="180" stroke="#2a2a2a" stroke-width="1"/>
+        <line x1="60" y1="130" x2="680" y2="130" stroke="#2a2a2a" stroke-width="0.5" stroke-dasharray="4,4"/>
+        <line x1="60" y1="80" x2="680" y2="80" stroke="#2a2a2a" stroke-width="0.5" stroke-dasharray="4,4"/>
+        <!-- Y labels -->
+        <text x="50" y="184" text-anchor="end" fill="#555" font-size="11">0</text>
+        <text x="50" y="134" text-anchor="end" fill="#555" font-size="11">20</text>
+        <text x="50" y="84" text-anchor="end" fill="#555" font-size="11">30</text>
+        <!-- Data: year, ppg. Scale: 0-40ppg mapped to 0-160px height -->
+        <!-- bars: x positions from 80 to 660, 8 seasons -->
+        <!-- 1999:22.5, 2002:25.2, 2006:35.4, 2007:31.6, 2008:28.3, 2010:27.0, 2013:27.3, 2016:17.6 -->
+        <rect x="80"  y="89"  width="44" height="91"  rx="4" fill="#552583" opacity="0.85"/>
+        <rect x="170" y="79"  width="44" height="101" rx="4" fill="#552583" opacity="0.85"/>
+        <rect x="260" y="38"  width="44" height="142" rx="4" fill="#c9a84c" opacity="0.95"/>
+        <rect x="350" y="54"  width="44" height="126" rx="4" fill="#552583" opacity="0.85"/>
+        <rect x="440" y="67"  width="44" height="113" rx="4" fill="#7b42b8" opacity="0.85"/>
+        <rect x="530" y="72"  width="44" height="108" rx="4" fill="#552583" opacity="0.85"/>
+        <rect x="620" y="110" width="44" height="70"  rx="4" fill="#552583" opacity="0.7"/>
+        <!-- Value labels on bars -->
+        <text x="102" y="84"  text-anchor="middle" fill="#c9a84c" font-size="12" font-weight="600">22.5</text>
+        <text x="192" y="74"  text-anchor="middle" fill="#c9a84c" font-size="12" font-weight="600">25.2</text>
+        <text x="282" y="33"  text-anchor="middle" fill="#c9a84c" font-size="13" font-weight="700">35.4</text>
+        <text x="372" y="49"  text-anchor="middle" fill="#c9a84c" font-size="12" font-weight="600">31.6</text>
+        <text x="462" y="62"  text-anchor="middle" fill="#c9a84c" font-size="12" font-weight="600">28.3</text>
+        <text x="552" y="67"  text-anchor="middle" fill="#c9a84c" font-size="12" font-weight="600">27.0</text>
+        <text x="642" y="105" text-anchor="middle" fill="#c9a84c" font-size="12" font-weight="600">17.6</text>
+        <!-- X labels -->
+        <text x="102" y="198" text-anchor="middle" fill="#666" font-size="11">'99</text>
+        <text x="192" y="198" text-anchor="middle" fill="#666" font-size="11">'02</text>
+        <text x="282" y="198" text-anchor="middle" fill="#c9a84c" font-size="11">'06</text>
+        <text x="372" y="198" text-anchor="middle" fill="#666" font-size="11">'07</text>
+        <text x="462" y="198" text-anchor="middle" fill="#666" font-size="11">'08</text>
+        <text x="552" y="198" text-anchor="middle" fill="#666" font-size="11">'10</text>
+        <text x="642" y="198" text-anchor="middle" fill="#666" font-size="11">'16</text>
+        <!-- Peak annotation -->
+        <line x1="282" y1="25" x2="330" y2="14" stroke="#c9a84c" stroke-width="1" stroke-dasharray="3,2"/>
+        <text x="334" y="17" fill="#c9a84c" font-size="10" font-style="italic">Career peak season</text>
+      </svg>
+    </div>
+    <p style="font-size:12px; color:#444; margin-top:1rem; letter-spacing:0.1em;">Points per game — selected seasons</p>
+  </section>
+
+  <!-- GIANNA TRIBUTE -->
+  <section style="background:#1a0a2e; padding:4rem 2rem; text-align:center; border-top:2px solid #552583;">
+    <div style="max-width:600px; margin:0 auto;">
+      <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:1rem; opacity:0.7;">
+        <circle cx="24" cy="24" r="22" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
+        <circle cx="24" cy="24" r="10" fill="#c9a84c" opacity="0.25"/>
+        <path d="M14 24 Q24 14 34 24 Q24 34 14 24Z" fill="#c9a84c" opacity="0.5"/>
+      </svg>
+      <p style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:#c9a84c; letter-spacing:0.1em; margin-bottom:0.5rem;">In Memory of Gianna Bryant</p>
+      <p style="font-family:'Libre Baskerville',serif; font-style:italic; font-size:15px; color:#8a7060; line-height:1.7;">
+        "She was just like me — competitive, focused, passionate. She would have been one of the greats." — Kobe Bryant
+      </p>
+      <p style="font-size:11px; color:#444; margin-top:1rem; letter-spacing:0.2em; text-transform:uppercase;">May 1, 2006 — January 26, 2020</p>
+    </div>
+  </section>
+
+
+  <footer>
+    <div class="footer-jersey">#24</div>
+    <p class="footer-text">Kobe Bean Bryant &nbsp;|&nbsp; <span>August 23, 1978 — January 26, 2020</span></p>
+    <p style="margin-top:0.75rem; font-size:12px; color:#444; letter-spacing:0.1em;">Mamba Out. But never forgotten.</p>
+  </footer>
+
+</body>
+</html>

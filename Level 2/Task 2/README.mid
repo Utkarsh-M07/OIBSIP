@@ -1,0 +1,36 @@
+# 🏀 Kobe Bryant — Tribute Page
+
+**Intern:** Utkarsh  
+**Task:** Level 2 — Task 2  
+**File:** `Tribute_page.html`
+
+## 📌 Overview
+A visually rich tribute page dedicated to Kobe Bryant — basketball legend, Olympic champion, and Academy Award winner. Built with Lakers purple and gold theme.
+
+## 🎯 Features
+- ✅ Hero section with name, dates, and quote
+- ✅ Career statistics grid
+- ✅ Full biography section
+- ✅ Career timeline — 10 key moments
+- ✅ Honours and achievements cards
+- ✅ SVG scoring chart across career seasons
+- ✅ Mamba Mentality quote section
+- ✅ Gianna Bryant tribute section
+- ✅ Fully responsive design
+
+## 🖥️ Tech Stack
+| Technology | Usage |
+|------------|-------|
+| HTML5 | Semantic structure |
+| CSS3 | Custom properties, grid, flexbox |
+| SVG | Inline chart and decorative elements |
+
+## 🚀 How to Run
+Open `Tribute_page.html` in any browser. Internet needed for Google Fonts.
+
+## 📂 File Structure
+```
+Level 2/Task 2/
+├── Tribute_page.html
+└── README.md
+```
